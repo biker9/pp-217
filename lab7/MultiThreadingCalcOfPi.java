@@ -7,10 +7,7 @@ import ru.rsreu.novikov.lab8.interfaces.Semaphore;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
+import java.util.concurrent.*;
 
 public class MultiThreadingCalcOfPi {
 
@@ -49,7 +46,6 @@ public class MultiThreadingCalcOfPi {
                 long entry;
                 try {
                     semaphore.acquire();
-
                     System.out.printf("Task in thread %s started\n", Thread.currentThread().getName());
 
                     CalculationOfPi monteCarlo = new CalculationOfPi();
@@ -72,7 +68,6 @@ public class MultiThreadingCalcOfPi {
                 try {
                     latch.await();
                 } catch (InterruptedException ex) {
-                    Thread.currentThread().interrupt();
                     return entry;
                 }
                 System.out.printf("For task in thread %s, interval = %d ms.\n",
